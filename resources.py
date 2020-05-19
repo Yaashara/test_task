@@ -2,7 +2,6 @@ from models import Person
 from db import session
 from pd_return import req_get_id
 
-from flask import Flask
 from flask_restplus import reqparse
 from flask_restplus import abort
 from flask_restplus import Resource
@@ -34,6 +33,8 @@ class PersonResource(Resource):
     @marshal_with(person_fields)
     def get(self):
         person = session.query(Person).all()
+        if not person:
+            abort(404, message="Nothing to see here")
         return person, 200
 
     # реализация post запроса
