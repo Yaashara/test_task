@@ -18,4 +18,4 @@ api.add_resource(PersonInstance, '/persons/<string:id>', endpoint='person')
 
 if __name__ == '__main__':
     # Запуск приложение в режиме дебага
-    app.run(debug=True)
+    app.run(host='0.0.0.0')

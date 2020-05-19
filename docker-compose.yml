@@ -1,0 +1,22 @@
+version: "3"
+services:
+   db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5430:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: admin
+      POSTGRES_DB: test_db
+   web:
+    build: .
+    ports:
+      - "5001:5000"
+    depends_on:
+      - db
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=8000
+      - FLASK_APP=execute.py
